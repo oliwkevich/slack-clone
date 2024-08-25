@@ -18,6 +18,8 @@ interface Props {
   setState: Dispatch<SetStateAction<SignInFlow>>;
 }
 
+//TODO: https://youtu.be/lXITA5MZIiI?t=2805
+
 export const SignInCard = ({ setState }: Props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
