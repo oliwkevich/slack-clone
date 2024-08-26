@@ -24,6 +24,7 @@ export const SignUpCard = ({ setState }: Props) => {
 	const { signIn } = useAuthActions();
 
 	const [error, setError] = useState('');
+	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
@@ -38,7 +39,7 @@ export const SignUpCard = ({ setState }: Props) => {
 			return setError('Паролі не співпадають!');
 		}
 
-		signIn('password', { email, password, flow: 'signUp' })
+		signIn('password', { name, email, password, flow: 'signUp' })
 			.catch(() => setError('Щось пішло не так!'))
 			.finally(() => setPending(false));
 	};
@@ -64,6 +65,14 @@ export const SignUpCard = ({ setState }: Props) => {
 			)}
 			<CardContent className='space-y-5 px-0 pb-0'>
 				<form className='space-y-2.5' onSubmit={onPasswordSignUp}>
+					<Input
+						placeholder='Ваше повне імя'
+						disabled={pending}
+						value={name}
+						onChange={e => setName(e.target.value)}
+						required
+						type='text'
+					/>
 					<Input
 						placeholder='Електронна адреса'
 						disabled={pending}
