@@ -1,3 +1,14 @@
+'use client'
+
+import { Button } from '@/components/ui/button';
+import { useAuthActions } from '@convex-dev/auth/react';
+
 export default function Home() {
-	return <div>Home Page</div>;
+	const { signOut } = useAuthActions();
+	return (
+		<div>
+			<Button onClick={signOut}>signOut</Button>
+			Home Page
+		</div>
+	);
 }
