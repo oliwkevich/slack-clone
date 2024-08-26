@@ -28,7 +28,7 @@ export const SignUpCard = ({ setState }: Props) => {
       <CardHeader className="px-0 pt-0">
         <CardTitle>Реєстрація</CardTitle>
         <CardDescription>
-          Використовуйте ваш емаіл або інший сервіс щоб продовжити
+          Використовуйте ваш email або інший сервіс щоб продовжити
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-5 px-0 pb-0">
