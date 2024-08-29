@@ -10,13 +10,17 @@ import {
 } from 'lucide-react';
 import { WorkspaceHeader } from './workspace-header';
 import { SidebarItem } from './sidebar-item';
-import { useGetChannels } from '@/features/channels/api/useGetChannels';
 import { WorkspaceSection } from './workspace-section';
 import { useGetMembers } from '@/features/members/api/use-get-members';
 import { UserItem } from './user-item';
+import { useCreateChannelModal } from '@/features/channels/store/use-create-channel-modal';
+import { useGetChannels } from '@/features/channels/api/use-get-channels';
 
 export const WorkspaceSidebar = () => {
 	const workspaceId = useWorkspaceId();
+
+	const [_, setOpenCreateChannel] = useCreateChannelModal();
+
 	const { data: channels, isLoading: isChannelsLoading } = useGetChannels({
 		workspaceId,
 	});
@@ -58,7 +62,13 @@ export const WorkspaceSidebar = () => {
 				<SidebarItem label='Треди' icon={MessageSquareText} id='threads' />
 				<SidebarItem label='Чорновики' icon={SendHorizonal} id='drafts' />
 			</div>
-			<WorkspaceSection label='Канали' hint='Новий канал' onNew={() => {}}>
+			<WorkspaceSection
+				label='Канали'
+				hint='Новий канал'
+				onNew={
+					member.role === 'admin' ? () => setOpenCreateChannel(true) : undefined
+				}
+			>
 				{channels?.map(item => (
 					<SidebarItem
 						id={item._id}
