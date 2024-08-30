@@ -48,7 +48,7 @@ export const EmojiPopover = ({
 					</TooltipContent>
 				</Tooltip>
 				<PopoverContent className='p-0 w-full border-none shadow-none'>
-					<Picker data={data} onEmojiSelect={onSelect} />
+					<Picker theme="light" data={data} onEmojiSelect={onSelect} />
 				</PopoverContent>
 			</Popover>
 		</TooltipProvider>
