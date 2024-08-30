@@ -40,7 +40,6 @@ const Editor = ({
 	placeholder = 'Почніть вводити текст...',
 }: Props) => {
 	const [text, setText] = useState('');
-	const [isToolbarVisible, setIsToolbarVisible] = useState(false);
 
 	const submitRef = useRef(onSubmit);
 	const disabledRef = useRef(disabled);
@@ -116,7 +115,6 @@ const Editor = ({
 	}, [innerRef]);
 
 	const toggleToolbar = () => {
-		setIsToolbarVisible(prev => !prev);
 		const toolbarElement = containerRef?.current?.querySelector('.ql-toolbar');
 
 		if (!toolbarElement) return;
