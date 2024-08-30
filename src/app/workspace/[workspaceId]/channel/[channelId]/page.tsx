@@ -1,17 +1,24 @@
 'use client';
 
-import { useGetChannel } from '@/features/channels/api/use-get-channel';
-import { useChannelId } from '@/hooks/use-channel-id';
 import { Loader, TriangleAlert } from 'lucide-react';
-import { Header } from './header';
+
+import { useGetChannel } from '@/features/channels/api/use-get-channel';
+import { useGetMessages } from '@/features/messages/api/use-get-messages';
+import { useChannelId } from '@/hooks/use-channel-id';
+
 import { ChatInput } from './chat-input';
+import { Header } from './header';
 
 const ChannelPage = () => {
 	const channelId = useChannelId();
 
 	const { data: channel, isLoading: isChannelLoading } = useGetChannel({
-		id: channelId,
+		id: channelId
 	});
+
+	const { results } = useGetMessages({ channelId });
+
+	console.log('results', results);
 
 	if (isChannelLoading) {
 		return (
@@ -33,7 +40,7 @@ const ChannelPage = () => {
 	return (
 		<div className='flex flex-col h-full'>
 			<Header title={channel.name} />
-			<div className='flex-1' />
+			<div className='flex-1'>{JSON.stringify(results)}</div>
 			<ChatInput placeholder={`Повідомленя для #${channel.name}`} />
 		</div>
 	);
