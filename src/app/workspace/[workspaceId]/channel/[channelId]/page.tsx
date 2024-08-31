@@ -8,6 +8,7 @@ import { useChannelId } from '@/hooks/use-channel-id';
 
 import { ChatInput } from './chat-input';
 import { Header } from './header';
+import { MessageList } from '@/components/message-list';
 
 const ChannelPage = () => {
 	const channelId = useChannelId();
@@ -16,11 +17,9 @@ const ChannelPage = () => {
 		id: channelId
 	});
 
-	const { results } = useGetMessages({ channelId });
+	const { results, status, loadMore } = useGetMessages({ channelId });
 
-	console.log('results', results);
-
-	if (isChannelLoading) {
+	if (isChannelLoading || status === 'LoadingFirstPage') {
 		return (
 			<div className='h-full flex-1 flex items-center justify-center'>
 				<Loader className='animate-spin size-5 text-muted-foreground' />
@@ -40,7 +39,14 @@ const ChannelPage = () => {
 	return (
 		<div className='flex flex-col h-full'>
 			<Header title={channel.name} />
-			<div className='flex-1'>{JSON.stringify(results)}</div>
+			<MessageList
+				data={results}
+				loadMore={loadMore}
+				channelName={channel.name}
+				canLoadMore={status === 'CanLoadMore'}
+				isLoadingMore={status === 'LoadingMore'}
+				channelCreationTime={channel._creationTime}
+			/>
 			<ChatInput placeholder={`Повідомленя для #${channel.name}`} />
 		</div>
 	);

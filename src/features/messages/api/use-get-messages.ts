@@ -9,7 +9,8 @@ interface Props {
 	conversationId?: Id<'conversations'>;
 }
 
-export type GetMessagesReturnType = typeof api.messages.get._returnType;
+export type GetMessagesReturnType =
+	(typeof api.messages.get._returnType)['page'];
 
 const BATCH_SIZE = 20;
 
